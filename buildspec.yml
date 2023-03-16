@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo installing node JS
+  pre_build:
+    commands:
+      - echo Installing some packages and source NPM dependencies...
+      - npm install 
+
+    finally:
+      - echo Pre-build phase finished 
+  
+artifacts:
+  files:
+    - '**/*'
