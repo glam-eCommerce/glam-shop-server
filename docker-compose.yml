@@ -3,9 +3,7 @@ version: '3'
 services:
   server:
     container_name: glam-server
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - 8000:8000
     environment:
