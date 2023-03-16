@@ -7,10 +7,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - 80:80
     environment:
       - DATABASE=mongodb://root:Glamecommerce!123@glam-mongodb.cluster-cf6vaav49w2p.ap-southeast-1.docdb.amazonaws.com:27017/?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
-      - PORT=8000
+      - PORT=80
       - BRAINTREE_MERCHANT_ID=3wv8zr3vrx5y2h8b
       - BRAINTREE_PUBLIC_KEY=sd25mjxk4hhw9t7r
       - BRAINTREE_PRIVATE_KEY=a5df57ceeb3919851d4cd2f8c51db3a5
