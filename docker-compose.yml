@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  backend:
+    container_name: glam-server
+    build: .
+    volumes:
+      - '.:/server'
+      - '/server/node_modules'
+    ports:
+      - 8000:8000
+    depends_on: 
+      - mongodb
+    environment:
+      MONGODB_URI: mondodb://mongodb:27017/ecommerce
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - 27017:27017
