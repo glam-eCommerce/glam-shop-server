@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 80:80
-      # test
+      # test cicd
     environment:
       - DATABASE=mongodb://root:Glamecommerce!123@glam-mongodb.cluster-cf6vaav49w2p.ap-southeast-1.docdb.amazonaws.com:27017/?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
       - PORT=80
