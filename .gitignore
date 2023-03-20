@@ -1,4 +1,3 @@
 .env
 public
-rds-combined-ca-bundle.pem
 node_modules
