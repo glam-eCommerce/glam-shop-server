@@ -1,0 +1,6 @@
+node_modules
+public
+.dockerignore
+Dockerfile
+Dockerfile.prod
+.env
