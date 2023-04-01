@@ -20,7 +20,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require("mongodb").MongoClient;
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -70,6 +70,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Glam Ecommerce API is working");
+});
 app.use("/api", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/category", categoryRouter);
