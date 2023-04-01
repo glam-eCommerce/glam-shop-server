@@ -70,9 +70,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Glam Ecommerce API is working");
-});
 app.use("/api", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/category", categoryRouter);
@@ -80,6 +77,11 @@ app.use("/api/product", productRouter);
 app.use("/api", brainTreeRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
+
+// Test application
+app.get("/", (req, res) => {
+  res.send("Glam Ecommerce API is working");
+});
 
 // Run Server
 const PORT = process.env.PORT || 8000;
