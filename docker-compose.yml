@@ -11,3 +11,5 @@ services:
     env_file:
       - .env
     restart: always
+
+# testing CICD pipeline after terraform updates
