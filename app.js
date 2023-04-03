@@ -86,6 +86,7 @@ redisClient.on('connect', function (err) {
       redisClient.set('promo', 'Get 10% off your first purchase when you sign up for our newsletter!', redis.print);
       console.log('Promos set to redis successfully!');
     }
+  });
 
 });
 
