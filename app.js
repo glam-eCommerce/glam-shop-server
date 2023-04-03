@@ -82,7 +82,7 @@ redisClient.on('error', function (err) {
 redisClient.on('connect', function (err) {
   console.log('==========Connected to redis successfully==========');
   console.log("check if pormos exists in redis....")
-  redisClient.get('promo', function (err, reply) {
+  redisClient.get('promo', (err, reply) => {
     if (reply) {
       console.log("Promos already exists in redis");
     } else {
