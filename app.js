@@ -71,9 +71,7 @@ const redisClient = redis.createClient({
   }
 });
 
-(async () => {
-  await redisclient.connect();
-})();
+await redisclient.connect();
 
 redisClient.on('error', function (err) {
   console.log('==========Could not establish a connection with redis.=======' );
