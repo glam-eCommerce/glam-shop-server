@@ -76,14 +76,15 @@ const redisClient = redis.createClient({
 })();
 
 redisClient.on("error", function (err) {
+  if (err) throw err;
   console.log("==========Could not establish a connection with redis.=======");
-  console.log(err);
 });
 
 redisClient.on("connect", function (err) {
   console.log("==========Connected to redis successfully==========");
   // console.log("check if promo exists in redis....");
   redisClient.get("promo", (err, reply) => {
+    if (err) throw err;
     if (reply != null) {
       console.log("Promos already exists in redis");
     } else {
