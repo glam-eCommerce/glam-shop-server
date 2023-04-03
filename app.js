@@ -126,6 +126,18 @@ app.get("/", (req, res) => {
   res.send("Glam Ecommerce API is working");
 });
 
+app.get("/api/promo", (req, res) => {
+  redisClient.get("promo", (err, reply) => {
+    if (err) {
+      console.log(`Error getting promo from Redis: ${err}`);
+      res.status(500).send("Error getting promo from Redis");
+    } else {
+      console.log(`Promo from Redis: ${reply}`);
+      res.status(200).send(reply);
+    }
+  });
+});
+
 // Run Server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
