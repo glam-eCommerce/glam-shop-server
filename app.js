@@ -126,7 +126,7 @@ app.get("/", (req, res) => {
   res.send("Glam Ecommerce API is working");
 });
 
-app.get("/api/promo", (req, res) => {
+app.get("/promo", (req, res) => {
   redisClient.get("promo", (err, reply) => {
     if (err) {
       console.log(`Error getting promo from Redis: ${err}`);
