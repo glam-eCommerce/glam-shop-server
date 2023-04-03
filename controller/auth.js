@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const userModel = require("../models/users");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config/keys");
+const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 
 class Auth {
   async isAdmin(req, res) {

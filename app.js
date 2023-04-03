@@ -24,6 +24,8 @@ const MongoClient = require("mongodb").MongoClient;
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 
 // Import Router
 const authRouter = require("./routes/auth");
@@ -60,6 +62,32 @@ mongoose
     )
   )
   .catch((err) => console.log("Database Not Connected !!! " + err));
+
+// connect to AWS redis
+const redisClient = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
+
+redisClient.on('error', function (err) {
+  console.log('==========Could not establish a connection with redis.=======' );
+  console.log(err);
+});
+redisClient.on('connect', function (err) {
+  console.log('==========Connected to redis successfully==========');
+  console.log("check if pormos exists in redis....")
+  redisClient.get('promo', function (err, reply) {
+    if (reply) {
+      console.log("Promos already exists in redis");
+    } else {
+      console.log("Promos not exists in redis");
+      console.log("Setting promos to redis...");
+      console.log('Setting promos to redis......');
+      redisClient.set('promo', 'Get 10% off your first purchase when you sign up for our newsletter!', redis.print);
+      console.log('Promos set to redis successfully!');
+    }
+
+});
 
 // Middleware
 app.use(morgan("dev"));
