@@ -82,28 +82,26 @@ redisClient.on("error", function (err) {
 
 redisClient.on("connect", function (err) {
   console.log("==========Connected to redis successfully==========");
-});
-
-console.log("check if promo exists in redis....");
-redisClient.get("promo", (err, reply) => {
-  if (reply) {
-    console.log("Promos already exists in redis");
-  } else {
-    console.log("Promos not exists in redis");
-    console.log("Setting promos to redis...");
-    console.log("Setting promos to redis......");
-    redisClient.set(
-      "promo",
-      "Get 10% off your first purchase when you sign up for our newsletter!",
-      (err, reply) => {
-        if (err) {
-          console.log(`Error setting promo in Redis: ${err}`);
-        } else {
-          console.log("Promo set in Redis successfully!");
+  console.log("check if promo exists in redis....");
+  redisClient.get("promo", (err, reply) => {
+    if (reply != null) {
+      console.log("Promos already exists in redis");
+    } else {
+      console.log("Promos not exists in redis");
+      console.log("Setting promos to redis...");
+      redisClient.set(
+        "promo",
+        "Get 10% off your first purchase when you sign up for our newsletter!",
+        (err, reply) => {
+          if (err) {
+            console.log(`Error setting promo in Redis: ${err}`);
+          } else {
+            console.log("Promo set in Redis successfully!");
+          }
         }
-      }
-    );
-  }
+      );
+    }
+  });
 });
 
 // Middleware
