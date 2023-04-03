@@ -12,4 +12,4 @@ services:
       - .env
     restart: always
 
-# testing CICD pipeline after terraform updates, testing 10:31pm 1st April
+# testing CICD pipeline after terraform updates, testing 12:46pm 3rd April
