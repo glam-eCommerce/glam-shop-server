@@ -65,8 +65,10 @@ mongoose
 
 // connect to AWS redis
 const redisClient = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+  socket: {
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+  }
 });
 
 redisClient.on('error', function (err) {
