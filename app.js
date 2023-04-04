@@ -65,7 +65,6 @@ mongoose
 const redisClient = new Redis({
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT || 6379,
-    tls: {}
 });
 
 // // connect to AWS redis
