@@ -66,7 +66,7 @@ mongoose
 // connect to AWS redis
 const redisClient = redis.createClient({
   url: `redis://${process.env.REDIS_URL}`,
-  tls: null,
+  tls: {},
 });
 
 (async () => {
