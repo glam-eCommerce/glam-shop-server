@@ -67,25 +67,6 @@ const redisClient = new Redis({
     port: process.env.REDIS_PORT || 6379,
 });
 
-// // connect to AWS redis
-// const redisClient = redis.createClient({
-//   url: `redis://${process.env.REDIS_URL}`,
-//   tls: {},
-// });
-
-// (async () => {
-//   await redisClient.connect();
-// })();
-
-// redisClient.on("error", function (err) {
-//   if (err) throw err;
-//   console.log("==========Could not establish a connection with redis.=======");
-// });
-
-// redisClient.on("connect", function (err) {
-//   console.log("==========Connected to redis successfully==========");
-// });
-
 
 
 // console.log("check if promo exists in redis....");
