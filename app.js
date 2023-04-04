@@ -24,8 +24,7 @@ const MongoClient = require("mongodb").MongoClient;
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const redis = require("redis");
-const connectRedis = require("connect-redis");
+const redis = require("ioredis");
 
 // Import Router
 const authRouter = require("./routes/auth");
@@ -63,51 +62,43 @@ mongoose
   )
   .catch((err) => console.log("Database Not Connected !!! " + err));
 
-// connect to AWS redis
-const redisClient = redis.createClient({
-  url: `redis://${process.env.REDIS_URL}`,
-  tls: {},
+const redisClient = new Redis({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT || 6379,
+    tls: {}
 });
 
-(async () => {
-  await redisClient.connect();
-})();
+// // connect to AWS redis
+// const redisClient = redis.createClient({
+//   url: `redis://${process.env.REDIS_URL}`,
+//   tls: {},
+// });
 
-redisClient.on("error", function (err) {
-  if (err) throw err;
-  console.log("==========Could not establish a connection with redis.=======");
-});
+// (async () => {
+//   await redisClient.connect();
+// })();
 
-redisClient.on("connect", function (err) {
-  console.log("==========Connected to redis successfully==========");
-});
+// redisClient.on("error", function (err) {
+//   if (err) throw err;
+//   console.log("==========Could not establish a connection with redis.=======");
+// });
 
-(async () => {
-  // console.log("check if promo exists in redis....");
-  await redisClient.get("promo", (err, reply) => {
-    if (err) {
-      console.log(`Error getting promo from Redis: ${err}`);
-    } else {
-      if (reply != null) {
-        console.log("Promos already exists in redis");
-      } else {
-        console.log("Promos not exists in redis");
-        console.log("Setting promos to redis...");
-        redisClient.set(
-          "promo",
-          "Get 10% off your first purchase when you sign up for our newsletter!",
-          (err, reply) => {
-            if (err) {
-              console.log(`Error setting promo in Redis: ${err}`);
-            } else {
-              console.log(`Status: ${reply}, Promo set in Redis successfully!`);
-            }
-          }
-        );
-      }
-    }
-  });
-})();
+// redisClient.on("connect", function (err) {
+//   console.log("==========Connected to redis successfully==========");
+// });
+
+
+
+// console.log("check if promo exists in redis....");
+redisClient.get("promo").then((result)=>{
+  if(result){
+    console.log("Promos already exists in redis");
+  }else{
+    console.log("Promos not exists in redis");
+    console.log("Setting promos to redis...");
+    redisClient.set("promo","Get 10% off your first purchase when you sign up for our newsletter!");
+  }
+}) 
 
 // Middleware
 app.use(morgan("dev"));
@@ -132,15 +123,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/promo", (req, res) => {
-  redisClient.get("promo", (err, reply) => {
-    if (err) {
-      console.log(`Error getting promo from Redis: ${err}`);
-      res.status(500).send("Error getting promo from Redis");
-    } else {
-      console.log(`Promo from Redis: ${reply}`);
-      res.status(200).send(reply);
+  redisClient.get("promo").then((result)=>{
+    if(result){
+      console.log("Promo from redis");
+      res.status(200).send(result);
+    }else{
+      res.status(200).send("Promo not exists in redis");
     }
-  });
+  }) 
 });
 
 // Run Server
