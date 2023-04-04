@@ -7,11 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./public/uploads:/app/public/uploads:
+      - ./public/uploads:/app/public/uploads
     ports:
       - 80:80
     env_file:
       - .env
     restart: always
-
-# testing CICD pipeline after terraform updates, testing 8:09pm 3rd April
