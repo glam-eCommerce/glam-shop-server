@@ -24,7 +24,7 @@ const MongoClient = require("mongodb").MongoClient;
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const redis = require("ioredis");
+const Redis = require("ioredis");
 
 // Import Router
 const authRouter = require("./routes/auth");
